@@ -2,38 +2,35 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function RenderLeader({leader}) {
-  if (leader != null) {
-    return (
-      <Media>
-        <Media left middle>
-            <Media object src={leader.image} alt={leader.name} />
-        </Media>
-        <Media>
-          <Media heading>{leader.name}</Media>
-          <p>{leader.designation}</p>
-          <p>{leader.description}</p>
-        </Media>
-      </Media>
-    );
-  }
-  else {
-    return(
-        <div></div>
-    );
-  }
-}
-
 function About(props) {
 
-  const leaders = props.leaders.map((leader) => {
-      return (
-        <div className="col-12 col-md-5 m-1" key={leader.id} >
-            <RenderLeader leader={leader} />
-        </div>
-      );
-  });
+    console.log(props);
 
+    const leaders = props.leaders.map((leader) => {
+        return (
+            <React.Fragment key={leader.id} className="col-12 mt-5 ">
+             < RenderLeader leader= {leader}/>
+             </React.Fragment>
+
+        );
+    });
+
+    function RenderLeader({leader}){
+        return(
+            <Media tag="li" className="mt-4">
+                <Media  middle  >
+                    <Media object className="mr-3" src={ leader.image} alt={leader.name} />
+                </Media>
+                <Media body >
+                    <Media heading>
+                            {leader.name}
+                    </Media>
+                    <p> {leader.abbr} </p>
+                    {leader.description}
+                </Media>
+            </Media>
+        );
+    }
 
     return(
         <div className="container">
@@ -91,12 +88,11 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                      {leaders}
+                        {leaders}
                     </Media>
                 </div>
             </div>
         </div>
     );
 }
-
-export default About;
+export default About; 
