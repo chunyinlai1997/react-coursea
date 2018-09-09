@@ -27,6 +27,10 @@ const  DishDetail = (props) => {
           <div className="row">
               <div className="col-12 col-md-6">
                   <RenderDish dish={props.dish} />
+                  <RenderComments comments={props.comments}
+                    addComment={props.addComment}
+                    dishId={props.dish.id}
+                  />
               </div>
               <div className="col-12 col-md-6">
                   <h2>Comments</h2>
@@ -58,8 +62,8 @@ class DishdetailComment extends Component{
   }
 
   handleSubmit(values) {
-      //this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
-      alert("submitted!");
+      this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+      //alert("submitted!");
   }
 
   render(){
