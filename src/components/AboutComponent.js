@@ -2,36 +2,23 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function About(props) {
+const RenderLeader = ({leaders}) => {
+  return leaders.map((leader) => {
+      return (
+          <Media key={leader.id} className="mt-3">
+              <Media left className="pr-3 pl-3 pt-1">
+                  <img src={leader.image} alt={leader.name} />
+              </Media>
+              <Media body className="ml-3">
+                  <Media heading>{leader.name}</Media>
+                  {leader.description}
+              </Media>
+          </Media>
+      );
+  });
+};
 
-    console.log(props);
-
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <React.Fragment key={leader.id} className="col-12 mt-5 ">
-             < RenderLeader leader= {leader}/>
-             </React.Fragment>
-
-        );
-    });
-
-    function RenderLeader({leader}){
-        return(
-            <Media tag="li" className="mt-4">
-                <Media  middle  >
-                    <Media object className="mr-3" src={ leader.image} alt={leader.name} />
-                </Media>
-                <Media body >
-                    <Media heading>
-                            {leader.name}
-                    </Media>
-                    <p> {leader.abbr} </p>
-                    {leader.description}
-                </Media>
-            </Media>
-        );
-    }
-
+const About = (props) => {
     return(
         <div className="container">
             <div className="row">
@@ -74,8 +61,8 @@ function About(props) {
                                 <p className="mb-0">You better cut the pizza in four pieces because
                                     I'm not hungry enough to eat six.</p>
                                 <footer className="blockquote-footer">Yogi Berra,
-                                <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
-                                    P. Pepe, Diversion Books, 2014</cite>
+                                    <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
+                                        P. Pepe, Diversion Books, 2014</cite>
                                 </footer>
                             </blockquote>
                         </CardBody>
@@ -88,11 +75,12 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <RenderLeader leaders={props.leaders} />
                     </Media>
                 </div>
             </div>
         </div>
     );
-}
+};
+
 export default About;
